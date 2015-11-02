@@ -21,7 +21,7 @@ end
 #R-Index - display all the info
 get "/products" do
 	@user = User.find(session[:user_id])
-	@product = Property.all
+	@product = Product.all
 	erb :"static/index"
 end
 
@@ -32,7 +32,7 @@ end
 
 #U-edit return an HTML form for editing the geocoder
 get "/products/:product_id/edit" do
-	@product = Property.find(params[:product_id])
+	@product = Product.find(params[:product_id])
 	if @product.user == current_user
 		erb :"static/product_edit"
 	else
@@ -43,7 +43,7 @@ end
 #U-update - update the one andonly geocoder resource
 put "/products/:product_id" do
 
-	@product = Property.find(params[:product_id])
+	@product = Product.find(params[:product_id])
 	@product[:product_detail] = params[:product][:product_detail]
 	@product[:product_price] = params[:product][:product_price]
 	@product.save
@@ -52,7 +52,7 @@ end
 
 #U-delete the geocoder resource
 delete "/products/:product_id" do
-	@product = Property.find(params[:product_id])
+	@product = Product.find(params[:product_id])
 	@product.destroy
 	redirect to "/products"
 end
