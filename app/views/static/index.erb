@@ -1,2 +1,62 @@
-<h1>Hello World</h1>
-<p>See Me in views/static/index.html.erb</p>
+<div>
+
+<h1>Welcome to Gary.my !</h1>
+<form method="get" action="/users/new">
+	<input type="submit" value="Login">
+</form>
+
+<form method="get" action="/users/new">
+	<input type="submit" value="Signup">
+</form>
+
+<div>
+	<dl><% Product.all.each do |product| %>
+		<dd><a href="</a><%=product.product_detail %>"><%=product.product_detail %></a></dd>
+		<dd><%=product.product_price %></dd>
+	
+	</dl>
+						<% if @user && logged_in? && product.user_id == current_user.id %>	
+						
+								<form method="get" action="/products/<%=product.id %>/edit">
+									<input type="submit" value="edit">
+								</form>
+
+								<form method="post" action="/products/<%=product.id %>">
+									<input type="hidden" name="_method" value="delete" />
+									<input type="submit" value="delete">
+								</form>
+						<% end %>
+
+						<% if @user && logged_in? && product.user_id != current_user.id %>
+
+								<form method="" action="">
+									<input type="submit" value="favourite">
+								</form>
+
+								<form method="get" action="products/<%= product.id %>/favourites/new">
+									<input type="submit" value="favourite">
+								</form>
+						<% end %>
+		<% end %>
+</div>
+
+
+<div>
+	<% if @user && logged_in? %>
+		<%= @user.name %>
+
+		<form method="get" action="/products/<%= @user.id %>/new">
+			<input type="submit" value="Add Product">
+		</form>
+
+		<form method="post" action="/users/<%= @user.id %>">
+			<input type="hidden" name="_method" value="delete" />
+			<input type="submit" value="Log out">
+		</form>
+
+		
+
+	<% end %>	
+</div>
+
+</div>

@@ -1,0 +1,34 @@
+<form method="post" action="/users">
+	<h2>Please enter your email & password</h2>
+
+	<br><input class="form-control" type="text" placeholder="Name" name="user[name]"></br>
+
+	<br><input class="form-control" type="text" placeholder="Email" name="user[email]"></br>
+
+	<br><input class="form-control" type=password placeholder="Password" name = "user[password]"></br>
+
+	<input type=submit value="Sign Up">
+
+</form>
+
+	<% if @user && !@user.errors.empty? %> 
+	<% @user.errors.full_messages.each do |error| %>
+	<p><%= error	%></p>
+		<% end %>
+		<%elsif @signup_msg%>
+		<%= @signup_msg%>
+	<% end %>
+		
+
+<form method="get" action="/users">
+	<h2>Please login here</h2>
+
+	<br><input class="form-control" type="text" placeholder="Email" name="user[email]"></br>
+
+	<br><input class="form-control" type=password placeholder="Password" name = "user[password]"></br>
+
+	<input type=submit value="Login">
+	
+</form>
+
+<div><%= @error if @error %></div>
