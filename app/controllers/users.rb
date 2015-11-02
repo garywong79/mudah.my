@@ -33,6 +33,7 @@ post "/users" do
 end
 #R-Index - display all the info
 get "/users" do
+
 		@user = User.authenticate(params[:user][:email], params[:user][:password])
 
 	if @user.nil?
@@ -41,14 +42,11 @@ get "/users" do
 	else
 
 		session[:user_id] = @user.id
+
 		erb :"static/index"
 	end
 end
 
-#R-display the only and only geocoder resources
-get "/geocoder/:id" do #:id is a placeholder name, 
-	#params[this must be is the same name as above]
-end
 
 
 #U-delete the geocoder resource

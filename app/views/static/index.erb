@@ -1,62 +1,65 @@
 <div>
 
-<h1>Welcome to Gary.my !</h1>
-<form method="get" action="/users/new">
-	<input type="submit" value="Login">
-</form>
+	<h1>Welcome to Gary.my !</h1>
+	<div>
+		<div class ="col-md-4">
+			<form method="get" action="/users/new">
+				<input type="submit" value="Login">
+			</form>
 
-<form method="get" action="/users/new">
-	<input type="submit" value="Signup">
-</form>
+			<form method="get" action="/users/new">
+				<input type="submit" value="Signup">
+			</form>
+		</div>
+		<div class ="col-md-8">
+			<% if @user && logged_in? %>
+				<%= @user.name %>
 
-<div>
-	<dl><% Product.all.each do |product| %>
-		<dd><a href="</a><%=product.product_detail %>"><%=product.product_detail %></a></dd>
-		<dd><%=product.product_price %></dd>
-	
-	</dl>
-						<% if @user && logged_in? && product.user_id == current_user.id %>	
-						
-								<form method="get" action="/products/<%=product.id %>/edit">
-									<input type="submit" value="edit">
-								</form>
+			
+				<form method="get" action="/products/<%= @user.id %>/new">
+					<input type="submit" value="Add Product">
+				</form>
 
-								<form method="post" action="/products/<%=product.id %>">
-									<input type="hidden" name="_method" value="delete" />
-									<input type="submit" value="delete">
-								</form>
-						<% end %>
+				
 
-						<% if @user && logged_in? && product.user_id != current_user.id %>
+				<form method="post" action="/users/<%= @user.id %>">
+					<input type="hidden" name="_method" value="delete" />
+					<input type="submit" value="Log out">
+				</form>
 
-								<form method="" action="">
-									<input type="submit" value="favourite">
-								</form>
+			<% end %>	
+		</div>
+	</div>
 
-								<form method="get" action="products/<%= product.id %>/favourites/new">
-									<input type="submit" value="favourite">
-								</form>
-						<% end %>
-		<% end %>
-</div>
-
-
-<div>
-	<% if @user && logged_in? %>
-		<%= @user.name %>
-
-		<form method="get" action="/products/<%= @user.id %>/new">
-			<input type="submit" value="Add Product">
-		</form>
-
-		<form method="post" action="/users/<%= @user.id %>">
-			<input type="hidden" name="_method" value="delete" />
-			<input type="submit" value="Log out">
-		</form>
-
+	<div>
+		<dl><% Product.all.each do |product| %>
+			<dd><a href="</a><%=product.product_detail %>"><%=product.product_detail %></a></dd>
+			<dd><%=product.product_price %></dd>
 		
+		</dl>
+				<% if @user && logged_in? && product.user_id == current_user.id %>	
+				
+						<form method="get" action="/products/<%=product.id %>/edit">
+							<input type="submit" value="edit">
+						</form>
 
-	<% end %>	
-</div>
+						<form method="post" action="/products/<%=product.id %>">
+							<input type="hidden" name="_method" value="delete" />
+							<input type="submit" value="delete">
+						</form>
+				<% end %>
+
+				<% if @user && logged_in? && product.user_id != current_user.id %>
+
+						<form method="post" action="products/<%= product.id %>/favourites">
+							<input type="submit" value="add favourite">
+							<div><%= @added_msg if @added_msg %> </div>
+						</form>
+
+				<% end %>
+			<% end %>
+	</div>
+
+	
 
 </div>

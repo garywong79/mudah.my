@@ -1,0 +1,22 @@
+	My Favourites!
+
+<dl>
+	
+	<% if @user && logged_in? && @product.favourites.user_id == current_user.id %>
+
+		<% Favourite.find_by(current_user.id).each do|favourite| %>
+				<dd><%= favourite.fav_product_detail %></dd>
+				<% end %>
+		
+
+	<% end %>		
+</dl>
+
+	<div class = "col-md-12">
+			<form method="get" action="/products/<%= @product.id %>/favourites/new >">
+				<input type=submit value="Home">
+			</form>
+	</div>
+
+
+
